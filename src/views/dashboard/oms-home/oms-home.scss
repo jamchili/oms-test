@@ -1,0 +1,36 @@
+@keyframes oms-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.oms-enter {
+  animation: oms-fade-up 0.48s ease both;
+}
+
+.oms-card-hover {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.oms-card-hover:hover {
+  transform: translateY(-4px);
+}
+
+.oms-date-picker {
+  width: 220px;
+}
+
+.oms-date-picker-sm {
+  width: 160px;
+}
+
+.oms-danger-num {
+  color: var(--el-color-danger) !important;
+}

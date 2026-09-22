@@ -16,28 +16,25 @@ export const dashboardRoutes: AppRouteRecord = {
       component: '/dashboard/console',
       meta: {
         title: 'menus.dashboard.console',
-        icon: 'ri:home-smile-2-line',
         keepAlive: false,
         fixedTab: true
       }
     },
     {
-      path: 'analysis',
-      name: 'Analysis',
-      component: '/dashboard/analysis',
+      path: 'console-two',
+      name: 'ConsoleTwo',
+      component: '/dashboard/console-two',
       meta: {
-        title: 'menus.dashboard.analysis',
-        icon: 'ri:align-item-bottom-line',
+        title: 'menus.dashboard.consoleTwo',
         keepAlive: false
       }
     },
     {
-      path: 'ecommerce',
-      name: 'Ecommerce',
-      component: '/dashboard/ecommerce',
+      path: 'console-two-b',
+      name: 'ConsoleTwoB',
+      component: '/dashboard/console-two-b',
       meta: {
-        title: 'menus.dashboard.ecommerce',
-        icon: 'ri:bar-chart-box-line',
+        title: 'menus.dashboard.consoleTwoB',
         keepAlive: false
       }
     }

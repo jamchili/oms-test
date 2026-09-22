@@ -266,10 +266,28 @@ export interface DualBarCompareChartProps extends BaseChartProps {
   barWidth?: number
 }
 
+// 地图图表数据项接口
+export interface MapDataItem {
+  /** 区域名称（与 GeoJSON feature.name 对齐，如 California） */
+  name: string
+  /** 数据值 */
+  value: number
+}
+
 // 地图图表 Props 接口 - 统一地图图表配置
 export interface MapChartProps extends BaseChartProps {
-  /** 地图数据 */
-  mapData?: any[]
+  /** 地图热力数据 */
+  data?: MapDataItem[]
+  /** 地图数据（兼容旧字段） */
+  mapData?: MapDataItem[]
+  /** 系列名称（tooltip 指标名） */
+  serieName?: string
+  /** 是否允许缩放漫游 */
+  roam?: boolean
+  /** 是否显示视觉映射 */
+  showVisualMap?: boolean
+  /** 区域名称映射（tooltip / 标签显示名，如 California → 加利福尼亚） */
+  nameMap?: Record<string, string>
   /** 选中区域 */
   selectedRegion?: string
   /** 是否显示标签 */
