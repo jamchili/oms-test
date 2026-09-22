@@ -35,7 +35,7 @@ export const globalComponentsConfig: GlobalComponentConfig[] = [
     component: defineAsyncComponent(
       () => import('@/components/core/layouts/art-global-search/index.vue')
     ),
-    enabled: true
+    enabled: false
   },
   {
     name: '锁屏',

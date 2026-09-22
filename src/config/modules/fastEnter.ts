@@ -17,7 +17,7 @@ const fastEnterConfig: FastEnterConfig = {
       iconColor: '#377dff',
       enabled: true,
       order: 1,
-      routeName: 'Console'
+      routeName: 'ConsoleTwo'
     },
     {
       name: '分析页',

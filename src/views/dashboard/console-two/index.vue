@@ -10,7 +10,7 @@
 
       <MetricGroup variant="cards" :items="kpiMetrics" :enter-offset="4" />
 
-      <ElRow :gutter="20">
+      <ElRow :gutter="12">
         <ElCol :sm="24" :md="12" :lg="14">
           <OrderTrend
             v-model:date-range="orderTrendRange"
@@ -30,7 +30,7 @@
         </ElCol>
       </ElRow>
 
-      <ElRow :gutter="20">
+      <ElRow :gutter="12">
         <ElCol :sm="24" :md="24" :lg="12">
           <OrderDistribution
             v-model:date-range="distributionRange"
@@ -53,7 +53,7 @@
         </ElCol>
       </ElRow>
 
-      <ElRow :gutter="20">
+      <ElRow :gutter="12">
         <ElCol :sm="24" :md="24" :lg="12">
           <DeliveryRate
             v-model:month="deliveryMonth"

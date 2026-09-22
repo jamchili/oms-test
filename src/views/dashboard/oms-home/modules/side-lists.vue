@@ -1,5 +1,5 @@
 <template>
-  <div v-if="sections.includes('cutOrder') && cutOrder" class="art-card p-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover">
+  <div v-if="sections.includes('cutOrder') && cutOrder" class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover">
     <div class="art-card-header">
       <div class="title">
         <h4>截单节省</h4>
@@ -20,7 +20,7 @@
 
   <div
     v-if="sections.includes('warehouse')"
-    class="art-card p-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover"
+    class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
     :class="fillHeight ? 'h-128' : ''"
   >
     <div class="art-card-header">
@@ -50,7 +50,7 @@
 
   <div
     v-if="sections.includes('warning')"
-    class="art-card p-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover"
+    class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
     :class="fillHeight ? 'h-128' : ''"
   >
     <div class="art-card-header">
@@ -80,7 +80,7 @@
 
   <div
     v-if="sections.includes('notice')"
-    class="art-card p-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover"
+    class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
     :class="fillHeight ? 'h-128' : ''"
     :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >

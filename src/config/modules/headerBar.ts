@@ -31,7 +31,7 @@ export const headerBarConfig: HeaderBarFeatureConfig = {
     description: '面包屑导航，显示当前页面路径'
   },
   globalSearch: {
-    enabled: true,
+    enabled: false,
     description: '全局搜索功能，支持快捷键 Ctrl+K 或 Cmd+K'
   },
   fullscreen: {

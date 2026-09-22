@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="variant === 'list'"
-    class="art-card h-128 p-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover"
+    class="art-card h-128 p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
     :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >
     <div class="art-card-header">
@@ -36,10 +36,10 @@
     </div>
   </div>
 
-  <ElRow v-else :gutter="20" class="flex">
+  <ElRow v-else :gutter="12" class="flex">
     <ElCol v-for="(item, index) in items" :key="item.key" :sm="12" :md="12" :lg="6">
       <div
-        class="art-card relative flex flex-col justify-center h-28 px-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover"
+        class="art-card relative flex flex-col justify-center h-28 px-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
         :style="{ animationDelay: `${(enterOffset + index) * 70}ms` }"
       >
         <span class="text-g-700 text-sm">{{ item.label }}</span>

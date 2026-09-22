@@ -9,6 +9,7 @@
  * - 用户信息存储
  * - 访问令牌和刷新令牌管理
  * - 语言设置
+ * - 时区设置
  * - 搜索历史记录
  * - 锁屏状态和密码管理
  * - 登出清理逻辑
@@ -45,13 +46,15 @@ import { StorageConfig } from '@/utils/storage/storage-config'
 
 /**
  * 用户状态管理
- * 管理用户登录状态、个人信息、语言设置、搜索历史、锁屏状态等
+ * 管理用户登录状态、个人信息、语言设置、时区设置、搜索历史、锁屏状态等
  */
 export const useUserStore = defineStore(
   'userStore',
   () => {
     // 语言设置
     const language = ref(LanguageEnum.ZH)
+    // 时区设置，默认中国（上海）
+    const timezone = ref('Asia/Shanghai')
     // 登录状态
     const isLogin = ref(false)
     // 锁屏状态
@@ -97,6 +100,14 @@ export const useUserStore = defineStore(
     const setLanguage = (lang: LanguageEnum) => {
       setPageTitle(router.currentRoute.value)
       language.value = lang
+    }
+
+    /**
+     * 设置时区
+     * @param tz IANA 时区标识
+     */
+    const setTimezone = (tz: string) => {
+      timezone.value = tz
     }
 
     /**
@@ -205,6 +216,7 @@ export const useUserStore = defineStore(
 
     return {
       language,
+      timezone,
       isLogin,
       isLock,
       lockPassword,
@@ -218,6 +230,7 @@ export const useUserStore = defineStore(
       setUserInfo,
       setLoginStatus,
       setLanguage,
+      setTimezone,
       setSearchHistory,
       setLockStatus,
       setLockPassword,

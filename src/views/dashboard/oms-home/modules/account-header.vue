@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="variant === 'bar'"
-    class="oms-enter oms-card-hover art-card mb-5 flex-cb flex-wrap gap-4 px-5 py-4 max-sm:mb-4"
+    class="oms-enter oms-card-hover art-card mb-3 flex-cb flex-wrap gap-4 px-5 py-4 max-sm:mb-3"
   >
     <div class="flex items-center min-w-60">
       <div class="size-12.5 rounded-xl flex-cc bg-theme/10 mr-4">
@@ -43,10 +43,10 @@
     </div>
   </div>
 
-  <ElRow v-else :gutter="20" class="flex">
+  <ElRow v-else :gutter="12" class="flex">
     <ElCol v-for="(item, index) in cards" :key="item.key" :sm="12" :md="6" :lg="6">
       <div
-        class="art-card relative flex flex-col justify-center h-35 px-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover"
+        class="art-card relative flex flex-col justify-center h-35 px-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
         :style="{ animationDelay: `${(enterOffset + index) * 70}ms` }"
       >
         <span class="text-g-700 text-sm">{{ item.label }}</span>

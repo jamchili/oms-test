@@ -17,7 +17,7 @@ export const dashboardRoutes: AppRouteRecord = {
       meta: {
         title: 'menus.dashboard.console',
         keepAlive: false,
-        fixedTab: true
+        isHide: true
       }
     },
     {
@@ -26,7 +26,8 @@ export const dashboardRoutes: AppRouteRecord = {
       component: '/dashboard/console-two',
       meta: {
         title: 'menus.dashboard.consoleTwo',
-        keepAlive: false
+        keepAlive: false,
+        fixedTab: true
       }
     },
     {

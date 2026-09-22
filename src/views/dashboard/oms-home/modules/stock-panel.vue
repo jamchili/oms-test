@@ -1,6 +1,6 @@
 <template>
   <div
-    class="art-card p-5 mb-5 max-sm:mb-4 overflow-hidden oms-enter oms-card-hover"
+    class="art-card p-5 mb-3 max-sm:mb-3 overflow-hidden oms-enter oms-card-hover"
     :class="compact ? '' : 'h-105'"
     :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >

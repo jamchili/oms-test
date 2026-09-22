@@ -61,6 +61,29 @@
       </div>
 
       <div class="flex-c gap-2.5">
+        <!-- 时区切换 -->
+        <ElDropdown @command="changeTimezone" popper-class="langDropDownStyle">
+          <div
+            class="timezone-btn inline-flex items-center gap-1 h-8.5 px-2 c-p text-g-600 dark:text-g-800 rounded tad-300 hover:bg-hover-color"
+          >
+            <ArtSvgIcon icon="ri:time-line" class="text-xl" />
+            <span class="text-sm whitespace-nowrap">{{ currentTimezoneLabel }}</span>
+          </div>
+          <template #dropdown>
+            <ElDropdownMenu>
+              <div v-for="item in timezoneOptions" :key="item.value" class="lang-btn-item">
+                <ElDropdownItem
+                  :command="item.value"
+                  :class="{ 'is-selected': timezone === item.value }"
+                >
+                  <span class="menu-txt">{{ item.label }}</span>
+                  <ArtSvgIcon icon="ri:check-fill" v-if="timezone === item.value" />
+                </ElDropdownItem>
+              </div>
+            </ElDropdownMenu>
+          </template>
+        </ElDropdown>
+
         <!-- 搜索 -->
         <div
           v-if="shouldShowGlobalSearch"
@@ -216,7 +239,16 @@
   const { menuOpen, systemThemeColor, showSettingGuide, menuType, isDark, tabStyle } =
     storeToRefs(settingStore)
 
-  const { language } = storeToRefs(userStore)
+  const { language, timezone } = storeToRefs(userStore)
+
+  const timezoneOptions = [
+    { label: '中国', value: 'Asia/Shanghai' },
+    { label: '美国', value: 'America/Los_Angeles' }
+  ] as const
+
+  const currentTimezoneLabel = computed(() => {
+    return timezoneOptions.find((item) => item.value === timezone.value)?.label ?? '中国'
+  })
   const { menuList } = storeToRefs(menuStore)
 
   const showNotice = ref(false)
@@ -289,6 +321,16 @@
     locale.value = lang
     userStore.setLanguage(lang)
     reload(50)
+  }
+
+  /**
+   * 切换时区
+   * @param tz IANA 时区标识
+   */
+  const changeTimezone = (tz: string): void => {
+    if (timezone.value === tz) return
+    userStore.setTimezone(tz)
+    ElMessage.success('切换时区成功')
   }
 
   /**
@@ -442,6 +484,10 @@
   }
 
   .language-btn:hover :deep(.art-svg-icon) {
+    animation: moveUp 0.4s;
+  }
+
+  .timezone-btn:hover :deep(.art-svg-icon) {
     animation: moveUp 0.4s;
   }
 

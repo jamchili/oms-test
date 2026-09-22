@@ -3,9 +3,9 @@
     <template v-if="customer">
       <AccountHeader variant="bar" :greeting="greeting" :customer="customer" />
 
-      <ElRow :gutter="20">
+      <ElRow :gutter="12">
         <ElCol :sm="24" :md="24" :lg="16">
-          <ElRow :gutter="20">
+          <ElRow :gutter="12">
             <ElCol :sm="24" :md="12" :lg="12">
               <MetricGroup
                 variant="panel"
@@ -39,7 +39,7 @@
             :enter-offset="7"
           />
 
-          <ElRow :gutter="20">
+          <ElRow :gutter="12">
             <ElCol :sm="24" :md="24" :lg="14">
               <OrderTrend
                 v-model:date-range="orderTrendRange"

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="variant === 'panel'" class="art-card p-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover">
+  <div v-if="variant === 'panel'" class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover">
     <div class="art-card-header flex-wrap gap-2">
       <div class="title">
         <h4>{{ title }}</h4>
@@ -65,10 +65,10 @@
     </div>
   </div>
 
-  <ElRow v-else :gutter="20" class="flex">
+  <ElRow v-else :gutter="12" class="flex">
     <ElCol v-for="(item, index) in items" :key="item.key" :sm="12" :md="8" :lg="4">
       <div
-        class="art-card relative flex flex-col justify-center h-35 px-5 mb-5 max-sm:mb-4 oms-enter oms-card-hover"
+        class="art-card relative flex flex-col justify-center h-35 px-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
         :style="{ animationDelay: `${(enterOffset + index) * 70}ms` }"
       >
         <span class="text-g-700 text-sm flex-c">
