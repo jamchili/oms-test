@@ -242,8 +242,8 @@
   const { language, timezone } = storeToRefs(userStore)
 
   const timezoneOptions = [
-    { label: '中国', value: 'Asia/Shanghai' },
-    { label: '美国', value: 'America/Los_Angeles' }
+    { label: '中国标准时间（UTC+8）', value: 'Asia/Shanghai' },
+    { label: '美国东部时间（UTC−5 / UTC−4）', value: 'America/Los_Angeles' }
   ] as const
 
   const currentTimezoneLabel = computed(() => {

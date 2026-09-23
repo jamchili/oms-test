@@ -26,12 +26,7 @@
             <ArtSvgIcon :icon="item.icon" class="text-base text-theme" />
           </span>
           {{ item.label }}
-          <ElPopover
-            v-if="item.details?.length"
-            placement="bottom"
-            :width="320"
-            trigger="click"
-          >
+          <ElPopover v-if="item.details?.length" placement="bottom" :width="320" trigger="click">
             <ArtTable
               :data="item.details"
               size="small"
@@ -73,12 +68,7 @@
       >
         <span class="text-g-700 text-sm flex-c">
           {{ item.label }}
-          <ElPopover
-            v-if="item.details?.length"
-            placement="bottom"
-            :width="320"
-            trigger="click"
-          >
+          <ElPopover v-if="item.details?.length" placement="bottom" :width="320" trigger="click">
             <ArtTable
               :data="item.details"
               size="small"

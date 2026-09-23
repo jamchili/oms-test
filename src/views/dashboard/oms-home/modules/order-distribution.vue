@@ -14,7 +14,7 @@
       </div>
       <ElDatePicker
         v-model="dateRange"
-        class="oms-date-picker"
+        class="oms-date-picker-sm"
         type="daterange"
         size="small"
         range-separator="→"
