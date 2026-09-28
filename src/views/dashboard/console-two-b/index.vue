@@ -3,92 +3,106 @@
     <template v-if="customer">
       <AccountHeader variant="bar" :greeting="greeting" :customer="customer" />
 
+      <!-- 运营快照：出运 / 订单 -->
+      <ElRow :gutter="12">
+        <ElCol :sm="24" :md="12" :lg="12">
+          <MetricGroup
+            variant="panel"
+            title="出运"
+            subtitle="待出运 / 预到仓 / 在途"
+            :items="shipmentMetrics"
+            :enter-offset="1"
+          />
+        </ElCol>
+        <ElCol :sm="24" :md="12" :lg="12">
+          <MetricGroup
+            variant="panel"
+            title="订单"
+            subtitle="当日运营快照"
+            :items="orderMetrics"
+            show-date
+            v-model:date="orderDate"
+            :enter-offset="2"
+          />
+        </ElCol>
+      </ElRow>
+
+      <!-- 风险履约：库存预警 / 妥投率 / 待办 / 公告 -->
+      <ElRow :gutter="12">
+        <ElCol :sm="24" :md="12" :lg="6">
+          <SideLists
+            :sections="['warning']"
+            :warning-list="inventoryWarningList"
+            compact
+            :enter-offset="4"
+          />
+        </ElCol>
+        <ElCol :sm="24" :md="12" :lg="6">
+          <DeliveryRate
+            v-model:month="deliveryMonth"
+            :rows="deliveryRows"
+            compact
+            :enter-offset="5"
+          />
+        </ElCol>
+        <ElCol :sm="24" :md="12" :lg="6">
+          <TodoCards variant="list" compact :items="todoItems" :enter-offset="6" />
+        </ElCol>
+        <ElCol :sm="24" :md="12" :lg="6">
+          <SideLists
+            :sections="['notice']"
+            :notice-list="announcementList"
+            compact
+            :enter-offset="7"
+          />
+        </ElCol>
+      </ElRow>
+
+      <!-- 订单分布 + 趋势 / 在库 + 仓库信息 -->
       <ElRow :gutter="12">
         <ElCol :sm="24" :md="24" :lg="16">
-          <ElRow :gutter="12">
-            <ElCol :sm="24" :md="12" :lg="12">
-              <MetricGroup
-                variant="panel"
-                title="出运"
-                subtitle="待出运 / 预到仓 / 在途"
-                :items="shipmentMetrics"
-                :enter-offset="1"
-              />
-            </ElCol>
-            <ElCol :sm="24" :md="12" :lg="12">
-              <MetricGroup
-                variant="panel"
-                title="订单"
-                subtitle="当日运营快照"
-                :items="orderMetrics"
-                show-date
-                v-model:date="orderDate"
-                :enter-offset="2"
-              />
-            </ElCol>
-          </ElRow>
-
-          <TodoCards variant="cards" :items="todoItems" :enter-offset="3" />
-
+          <OrderTrend
+            v-model:date-range="orderTrendRange"
+            :data="trendSeries"
+            :x-axis-data="trendXAxis"
+            :enter-offset="8"
+          />
           <OrderDistribution
             v-model:date-range="distributionRange"
             :rows="distributionRows"
             :map-data="distributionMapData"
             :total="distributionTotal"
-            compact
-            :enter-offset="7"
-          />
-
-          <ElRow :gutter="12">
-            <ElCol :sm="24" :md="24" :lg="14">
-              <OrderTrend
-                v-model:date-range="orderTrendRange"
-                :data="trendSeries"
-                :x-axis-data="trendXAxis"
-                :enter-offset="8"
-              />
-            </ElCol>
-            <ElCol :sm="24" :md="24" :lg="10">
-              <DeliveryRate
-                v-model:month="deliveryMonth"
-                :rows="deliveryRows"
-                compact
-                :enter-offset="9"
-              />
-            </ElCol>
-          </ElRow>
-
-          <RankingTable
-            v-model:date-range="rankRange"
-            v-model:page-size="rankPageSize"
-            :rows="rankRows"
-            compact
             :enter-offset="10"
-            @sort-change="handleRankSort"
           />
         </ElCol>
-
         <ElCol :sm="24" :md="24" :lg="8">
           <StockPanel
-            compact
             :pie-data="stockPieData"
             :in-stock-qty="inStockQty"
             :on-the-way-qty="onTheWayStockQty"
             :stock-info="stockInfo"
-            :table-rows="stockTableRows"
-            :table-columns="stockTableColumns"
-            :enter-offset="2"
+            :enter-offset="9"
           />
-          <SideLists
-            :sections="['cutOrder', 'warehouse', 'warning', 'notice']"
-            :cut-order="orderCutInfo"
-            :warehouse-list="warehouseInfoList"
-            :warning-list="inventoryWarningList"
-            :notice-list="announcementList"
-            :enter-offset="4"
-          />
+          <div class="mb-3 flex h-128 flex-col">
+            <SideLists :sections="['cutOrder']" :cut-order="orderCutInfo" :enter-offset="11" />
+            <SideLists
+              :sections="['warehouse']"
+              :warehouse-list="warehouseInfoList"
+              flex-fill
+              :enter-offset="12"
+            />
+          </div>
         </ElCol>
       </ElRow>
+
+      <!-- 订单排行 -->
+      <RankingTable
+        v-model:date-range="rankRange"
+        v-model:page-size="rankPageSize"
+        :rows="rankRows"
+        :enter-offset="13"
+        @sort-change="handleRankSort"
+      />
     </template>
   </div>
 </template>
@@ -133,8 +147,6 @@
     inStockQty,
     onTheWayStockQty,
     stockInfo,
-    stockTableRows,
-    stockTableColumns,
     orderCutInfo,
     warehouseInfoList,
     inventoryWarningList,

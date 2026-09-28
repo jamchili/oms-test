@@ -1,5 +1,9 @@
 <template>
-  <div v-if="sections.includes('cutOrder') && cutOrder" class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover">
+  <div
+    v-if="sections.includes('cutOrder') && cutOrder"
+    class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
+    :style="{ animationDelay: `${enterOffset * 70}ms` }"
+  >
     <div class="art-card-header">
       <div class="title">
         <h4>截单节省</h4>
@@ -21,7 +25,8 @@
   <div
     v-if="sections.includes('warehouse')"
     class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
-    :class="fillHeight ? 'h-128' : ''"
+    :class="cardHeightClass"
+    :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >
     <div class="art-card-header">
       <div class="title">
@@ -31,7 +36,7 @@
         </p>
       </div>
     </div>
-    <div :class="fillHeight ? 'h-9/10 mt-2 overflow-hidden' : 'max-h-70 mt-2 overflow-hidden'">
+    <div :class="listAreaClass">
       <ElScrollbar>
         <div
           class="h-17.5 leading-none border-b border-g-300 text-sm last:border-b-0 flex flex-col justify-center"
@@ -51,7 +56,8 @@
   <div
     v-if="sections.includes('warning')"
     class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
-    :class="fillHeight ? 'h-128' : ''"
+    :class="cardHeightClass"
+    :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >
     <div class="art-card-header">
       <div class="title">
@@ -61,7 +67,7 @@
         </p>
       </div>
     </div>
-    <div :class="fillHeight ? 'h-9/10 mt-2 overflow-hidden' : 'max-h-70 mt-2 overflow-hidden'">
+    <div :class="listAreaClass">
       <ElScrollbar>
         <div
           class="h-17.5 leading-none border-b border-g-300 text-sm last:border-b-0 flex flex-col justify-center"
@@ -81,7 +87,7 @@
   <div
     v-if="sections.includes('notice')"
     class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
-    :class="fillHeight ? 'h-128' : ''"
+    :class="cardHeightClass"
     :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >
     <div class="art-card-header">
@@ -92,7 +98,7 @@
         </p>
       </div>
     </div>
-    <div :class="fillHeight ? 'h-9/10 mt-2 overflow-hidden' : 'max-h-70 mt-2 overflow-hidden'">
+    <div :class="listAreaClass">
       <ElScrollbar>
         <div
           class="h-17.5 leading-none border-b border-g-300 text-sm last:border-b-0 flex flex-col justify-center"
@@ -119,7 +125,7 @@
 
   type OmsSideSection = 'cutOrder' | 'warehouse' | 'warning' | 'notice'
 
-  withDefaults(
+  const props = withDefaults(
     defineProps<{
       sections: OmsSideSection[]
       cutOrder?: OmsOrderCutInfo | null
@@ -127,6 +133,8 @@
       warningList?: OmsInventoryWarning[]
       noticeList?: OmsAnnouncementItem[]
       fillHeight?: boolean
+      flexFill?: boolean
+      compact?: boolean
       enterOffset?: number
     }>(),
     {
@@ -135,7 +143,23 @@
       warningList: () => [],
       noticeList: () => [],
       fillHeight: false,
+      flexFill: false,
+      compact: false,
       enterOffset: 0
     }
   )
+
+  const cardHeightClass = computed(() => {
+    if (props.compact) return 'h-80 flex flex-col'
+    if (props.flexFill) return 'min-h-0 flex-1 flex flex-col !mb-0'
+    if (props.fillHeight) return 'h-128 flex flex-col'
+    return ''
+  })
+
+  const listAreaClass = computed(() => {
+    if (props.compact || props.fillHeight || props.flexFill) {
+      return 'flex-1 min-h-0 mt-2 overflow-hidden'
+    }
+    return 'max-h-70 mt-2 overflow-hidden'
+  })
 </script>

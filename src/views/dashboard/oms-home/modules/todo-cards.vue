@@ -1,7 +1,8 @@
 <template>
   <div
     v-if="variant === 'list'"
-    class="art-card h-128 p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
+    class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
+    :class="compact ? 'h-80 flex flex-col' : 'h-128'"
     :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >
     <div class="art-card-header">
@@ -12,22 +13,26 @@
         </p>
       </div>
     </div>
-    <div class="h-[calc(100%-40px)] overflow-auto">
+    <div :class="compact ? 'flex-1 min-h-0 mt-1 overflow-hidden' : 'h-[calc(100%-40px)] overflow-auto'">
       <ElScrollbar>
         <div
-          class="flex-cb h-17.5 border-b border-g-300 text-sm last:border-b-0"
+          class="flex-cb border-b border-g-300 text-sm last:border-b-0"
+          :class="compact ? 'h-12.5' : 'h-17.5'"
           v-for="item in items"
           :key="item.key"
         >
           <div class="flex-c">
-            <span class="size-8 rounded-lg flex-cc bg-theme/10 mr-3">
+            <span
+              class="rounded-lg flex-cc bg-theme/10 mr-3"
+              :class="compact ? 'size-7' : 'size-8'"
+            >
               <ArtSvgIcon :icon="item.icon" class="text-base text-theme" />
             </span>
             <p class="text-sm">{{ item.label }}</p>
           </div>
           <ArtCountTo
-            class="text-lg font-medium"
-            :class="item.value > 0 ? 'oms-danger-num' : ''"
+            class="font-medium"
+            :class="[compact ? 'text-base' : 'text-lg', item.value > 0 ? 'oms-danger-num' : '']"
             :target="item.value"
             :duration="1100"
           />
@@ -66,10 +71,12 @@
     defineProps<{
       variant?: 'cards' | 'list'
       items: OmsTodoItem[]
+      compact?: boolean
       enterOffset?: number
     }>(),
     {
       variant: 'cards',
+      compact: false,
       enterOffset: 0
     }
   )

@@ -1,7 +1,7 @@
 <template>
   <div
-    class="art-card p-5 mb-3 max-sm:mb-3 overflow-hidden oms-enter oms-card-hover"
-    :class="compact ? 'h-105' : 'h-128'"
+    class="art-card p-5 mb-3 max-sm:mb-3 overflow-hidden oms-enter oms-card-hover flex flex-col"
+    :class="compact ? 'h-80' : 'h-128'"
     :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >
     <div class="art-card-header flex-wrap gap-2">
@@ -19,25 +19,28 @@
         clearable
       />
     </div>
-    <ArtTable
-      class="w-full"
-      :data="rows"
-      size="large"
-      :border="false"
-      :stripe="false"
-      :header-cell-style="{ background: 'transparent' }"
-    >
-      <template #default>
-        <ElTableColumn label="月份" prop="month" min-width="100" />
-        <ElTableColumn label="总订单" prop="totolOrder" min-width="100" />
-        <ElTableColumn label="妥投订单" prop="properInvestmentOrder" min-width="110" />
-        <ElTableColumn label="妥投率" prop="pIrate" min-width="110">
-          <template #default="scope">
-            <span class="text-theme font-medium">{{ formatPercent(scope.row.pIrate) }}</span>
-          </template>
-        </ElTableColumn>
-      </template>
-    </ArtTable>
+    <div class="flex-1 min-h-0 mt-2">
+      <ArtTable
+        class="w-full"
+        :data="rows"
+        :size="compact ? 'small' : 'large'"
+        :border="false"
+        :stripe="false"
+        :header-cell-style="{ background: 'transparent' }"
+        :max-height="compact ? 248 : undefined"
+      >
+        <template #default>
+          <ElTableColumn label="月份" prop="month" min-width="100" />
+          <ElTableColumn label="总订单" prop="totolOrder" min-width="100" />
+          <ElTableColumn label="妥投订单" prop="properInvestmentOrder" min-width="110" />
+          <ElTableColumn label="妥投率" prop="pIrate" min-width="110">
+            <template #default="scope">
+              <span class="text-theme font-medium">{{ formatPercent(scope.row.pIrate) }}</span>
+            </template>
+          </ElTableColumn>
+        </template>
+      </ArtTable>
+    </div>
   </div>
 </template>
 

@@ -30,14 +30,14 @@
           {{ isNegative ? '-' : '' }}${{ Math.abs(Number(customer.balance)).toFixed(2) }}
         </p>
         <p class="mt-1.5 text-xs text-g-600">
-          {{ customer.accountType ? '账户余额' : '已用额度' }}
+          {{ customer.accountType ? '账户余额($)' : '已用额度($)' }}
         </p>
       </div>
       <div v-if="customer.accountType" class="text-right">
         <p class="text-[22px] font-medium text-g-900 leading-none">
           ${{ Number(customer.temporaryQuota).toLocaleString() }}
         </p>
-        <p class="mt-1.5 text-xs text-g-600">临时额度</p>
+        <p class="mt-1.5 text-xs text-g-600"> 额度($)</p>
       </div>
       <ElButton type="primary" @click="onRecharge">充值</ElButton>
     </div>
@@ -76,7 +76,9 @@
             充值
           </ElButton>
         </div>
-        <div class="absolute top-0 bottom-0 right-5 m-auto size-12.5 rounded-xl flex-cc bg-theme/10">
+        <div
+          class="absolute top-0 bottom-0 right-5 m-auto size-12.5 rounded-xl flex-cc bg-theme/10"
+        >
           <ArtSvgIcon :icon="item.icon" class="text-xl text-theme" />
         </div>
       </div>
