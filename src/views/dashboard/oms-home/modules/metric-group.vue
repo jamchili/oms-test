@@ -1,5 +1,8 @@
 <template>
-  <div v-if="variant === 'panel'" class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover">
+  <div
+    v-if="variant === 'panel'"
+    class="art-card p-5 oms-enter oms-card-hover h-full flex flex-col"
+  >
     <div class="art-card-header flex-wrap gap-2">
       <div class="title">
         <h4>{{ title }}</h4>

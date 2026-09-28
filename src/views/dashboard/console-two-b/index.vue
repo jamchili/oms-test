@@ -3,9 +3,9 @@
     <template v-if="customer">
       <AccountHeader variant="bar" :greeting="greeting" :customer="customer" />
 
-      <!-- 运营快照：出运 / 订单 -->
-      <ElRow :gutter="12">
-        <ElCol :sm="24" :md="12" :lg="12">
+      <!-- 运营快照：出运 / 订单 / 截单节省 -->
+      <ElRow :gutter="12" class="flex">
+        <ElCol :sm="24" :md="8" :lg="8" class="flex mb-3">
           <MetricGroup
             variant="panel"
             title="出运"
@@ -14,7 +14,7 @@
             :enter-offset="1"
           />
         </ElCol>
-        <ElCol :sm="24" :md="12" :lg="12">
+        <ElCol :sm="24" :md="8" :lg="8" class="flex mb-3">
           <MetricGroup
             variant="panel"
             title="订单"
@@ -23,6 +23,15 @@
             show-date
             v-model:date="orderDate"
             :enter-offset="2"
+          />
+        </ElCol>
+        <ElCol :sm="24" :md="8" :lg="8" class="flex mb-3">
+          <MetricGroup
+            variant="panel"
+            title="截单节省"
+            subtitle="合并出运节约票数"
+            :items="cutOrderMetrics"
+            :enter-offset="3"
           />
         </ElCol>
       </ElRow>
@@ -83,15 +92,12 @@
             :stock-info="stockInfo"
             :enter-offset="9"
           />
-          <div class="mb-3 flex h-128 flex-col">
-            <SideLists :sections="['cutOrder']" :cut-order="orderCutInfo" :enter-offset="11" />
-            <SideLists
-              :sections="['warehouse']"
-              :warehouse-list="warehouseInfoList"
-              flex-fill
-              :enter-offset="12"
-            />
-          </div>
+          <SideLists
+            :sections="['warehouse']"
+            :warehouse-list="warehouseInfoList"
+            fill-height
+            :enter-offset="11"
+          />
         </ElCol>
       </ElRow>
 
@@ -128,6 +134,7 @@
     customer,
     shipmentMetrics,
     orderMetrics,
+    cutOrderMetrics,
     orderDate,
     todoItems,
     distributionRange,
@@ -147,7 +154,6 @@
     inStockQty,
     onTheWayStockQty,
     stockInfo,
-    orderCutInfo,
     warehouseInfoList,
     inventoryWarningList,
     announcementList

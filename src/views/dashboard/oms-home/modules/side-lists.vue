@@ -2,6 +2,7 @@
   <div
     v-if="sections.includes('cutOrder') && cutOrder"
     class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
+    :class="cutOrderCardClass"
     :style="{ animationDelay: `${enterOffset * 70}ms` }"
   >
     <div class="art-card-header">
@@ -10,7 +11,25 @@
         <p>合并出运节约票数</p>
       </div>
     </div>
-    <div class="flex-b mt-4">
+    <div v-if="compact" class="cut-order-grid flex-1 min-h-0 mt-2">
+      <div class="flex flex-col items-center justify-center">
+        <p class="text-xs text-g-500">总订单</p>
+        <ArtCountTo
+          class="text-2xl font-medium text-g-900 mt-2"
+          :target="cutOrder.totolOrder"
+          :duration="1100"
+        />
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <p class="text-xs text-g-500">节省票数</p>
+        <ArtCountTo
+          class="text-2xl font-medium text-theme mt-2"
+          :target="cutOrder.thrift"
+          :duration="1100"
+        />
+      </div>
+    </div>
+    <div v-else :class="cutOrderBodyClass">
       <div>
         <p class="text-2xl font-medium text-g-900">{{ cutOrder.totolOrder }}</p>
         <p class="text-xs text-g-500 mt-1">总订单</p>
@@ -135,6 +154,7 @@
       fillHeight?: boolean
       flexFill?: boolean
       compact?: boolean
+      panel?: boolean
       enterOffset?: number
     }>(),
     {
@@ -145,6 +165,7 @@
       fillHeight: false,
       flexFill: false,
       compact: false,
+      panel: false,
       enterOffset: 0
     }
   )
@@ -156,6 +177,16 @@
     return ''
   })
 
+  const cutOrderCardClass = computed(() => {
+    if (props.panel) return 'h-full flex flex-col'
+    return cardHeightClass.value
+  })
+
+  const cutOrderBodyClass = computed(() => {
+    if (props.panel) return 'flex-1 flex-b items-center mt-4'
+    return 'flex-b mt-4'
+  })
+
   const listAreaClass = computed(() => {
     if (props.compact || props.fillHeight || props.flexFill) {
       return 'flex-1 min-h-0 mt-2 overflow-hidden'
@@ -163,3 +194,10 @@
     return 'max-h-70 mt-2 overflow-hidden'
   })
 </script>
+
+<style scoped>
+  .cut-order-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+</style>

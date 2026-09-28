@@ -1,6 +1,38 @@
 <template>
   <div
-    v-if="variant === 'list'"
+    v-if="variant === 'grid'"
+    class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover flex flex-col h-full"
+    :style="{ animationDelay: `${enterOffset * 70}ms` }"
+  >
+    <div class="art-card-header">
+      <div class="title">
+        <h4>待办事项</h4>
+        <p>
+          待处理<span class="text-danger">{{ pendingCount }}</span>
+        </p>
+      </div>
+      <span class="text-sm text-g-500 shrink-0">处理队列</span>
+    </div>
+    <div class="todo-grid flex-1 min-h-0 mt-2">
+      <div class="flex-cb min-w-0 px-1" v-for="item in items" :key="item.key">
+        <div class="flex-c min-w-0">
+          <span class="size-8 rounded-lg flex-cc bg-theme/10 mr-3 shrink-0">
+            <ArtSvgIcon :icon="item.icon" class="text-base text-theme" />
+          </span>
+          <p class="text-sm truncate">{{ item.label }}</p>
+        </div>
+        <ArtCountTo
+          class="font-medium ml-2 shrink-0 text-lg"
+          :class="item.value > 0 ? 'oms-danger-num' : ''"
+          :target="item.value"
+          :duration="1100"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div
+    v-else-if="variant === 'list'"
     class="art-card p-5 mb-3 max-sm:mb-3 oms-enter oms-card-hover"
     :class="compact ? 'h-80 flex flex-col' : 'h-128'"
     :style="{ animationDelay: `${enterOffset * 70}ms` }"
@@ -13,7 +45,9 @@
         </p>
       </div>
     </div>
-    <div :class="compact ? 'flex-1 min-h-0 mt-1 overflow-hidden' : 'h-[calc(100%-40px)] overflow-auto'">
+    <div
+      :class="compact ? 'flex-1 min-h-0 mt-1 overflow-hidden' : 'h-[calc(100%-40px)] overflow-auto'"
+    >
       <ElScrollbar>
         <div
           class="flex-cb border-b border-g-300 text-sm last:border-b-0"
@@ -69,7 +103,7 @@
 
   const props = withDefaults(
     defineProps<{
-      variant?: 'cards' | 'list'
+      variant?: 'cards' | 'list' | 'grid'
       items: OmsTodoItem[]
       compact?: boolean
       enterOffset?: number
@@ -85,3 +119,12 @@
     props.items.reduce((sum, item) => sum + Number(item.value || 0), 0)
   )
 </script>
+
+<style scoped>
+  .todo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    column-gap: 16px;
+  }
+</style>

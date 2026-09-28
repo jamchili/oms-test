@@ -188,6 +188,25 @@ export function useOmsHomeData() {
     ]
   })
 
+  const cutOrderMetrics = computed<OmsMetricItem[]>(() => {
+    const info = orderCutInfo.value
+    if (!info) return []
+    return [
+      {
+        key: 'cutTotolOrder',
+        label: '总订单',
+        value: info.totolOrder,
+        icon: 'ri:file-copy-2-line'
+      },
+      {
+        key: 'thrift',
+        label: '节省票数',
+        value: info.thrift,
+        icon: 'ri:scissors-cut-line'
+      }
+    ]
+  })
+
   const kpiMetrics = computed(() => [...shipmentMetrics.value, ...orderMetrics.value])
 
   const todoItems = computed<OmsTodoItem[]>(() => {
@@ -339,6 +358,7 @@ export function useOmsHomeData() {
     accountCards,
     shipmentMetrics,
     orderMetrics,
+    cutOrderMetrics,
     kpiMetrics,
     todoItems,
     pendingTodoCount,
